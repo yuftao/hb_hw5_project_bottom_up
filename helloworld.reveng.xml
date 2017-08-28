@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-reverse-engineering SYSTEM 
-	"http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<!DOCTYPE hibernate-reverse-engineering SYSTEM "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
 
 <hibernate-reverse-engineering>
     
@@ -12,6 +11,8 @@
             <generator class="increment" />
             <key-column name="MESSAGE_ID" property="id" type="long" />
         </primary-key>
+        
+        <column name="MESSAGE_TEXT" property="text" />
         
         <foreign-key constraint-name="FK_NEXT_MESSAGE">
             <many-to-one property="nextMessage"/>

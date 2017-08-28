@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated 28-Aug-2017 15:07:35 by Hibernate Tools 5.2.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="PUBLIC" dynamic-insert="false" dynamic-update="false" mutable="true" name="hello.Messages" optimistic-lock="version" polymorphism="implicit" schema="PUBLIC" select-before-update="false" table="MESSAGES">
+        <id name="messageId" type="long">
+            <column name="MESSAGE_ID"/>
+            <generator class="assigned"/>
+        </id>
+        <many-to-one class="hello.Messages" embed-xml="true" fetch="select" insert="true" name="messages" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="NEXT_MESSAGE_ID"/>
+        </many-to-one>
+        <property generated="never" lazy="false" name="messageText" optimistic-lock="true" type="string" unique="false">
+            <column name="MESSAGE_TEXT"/>
+        </property>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="messageses" optimistic-lock="true" sort="unsorted" table="MESSAGES">
+            <key on-delete="noaction">
+                <column name="NEXT_MESSAGE_ID"/>
+            </key>
+            <one-to-many class="hello.Messages" embed-xml="true" not-found="exception"/>
+        </set>
+    </class>
+</hibernate-mapping>
