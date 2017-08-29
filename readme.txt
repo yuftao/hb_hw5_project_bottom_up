@@ -9,7 +9,12 @@ use cmd and switch the folder to the project folder
 run: ant && ant run
 
 
-how to open the clien ui:
-start the database
-use cmd and switch the folder to the project folder
+#how to open the clien ui:
+#start the database
+#use cmd and switch the folder to the project folder
 java -cp lib\hsqldb.jar org.hsqldb.util.DatabaseManager 
+
+#------------------------------------------------------
+#To make the ant tasks work
+ant reveng.pojos_example
+#you need to put the hibernate.cfg.xml into the path

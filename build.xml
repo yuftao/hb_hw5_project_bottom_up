@@ -7,8 +7,11 @@
     <!-- Global properties for this build -->
     <property name="src.java.dir" value="src" />
     <property name="src.etc.dir" value="etc" />
+    <property name="src.confs.dir" value="confs" />
     <property name="lib.dir" value="lib" />
     <property name="build.dir" value="bin" />
+
+    <!-- Defined by myself : a folder which contains the *.hbm.xml files -->
     
     <!-- Classpath declaration -->
     <path id="project.classpath">
@@ -16,6 +19,9 @@
             <include name="**/*.jar" />
             <include name="**/*.zip" />
         </fileset>
+        
+        <!-- Added by myself to include the configuration files into the classpath -->
+        <pathelement path="${src.confs.dir}"/>
     </path>
     
     <!-- Useful shortcuts -->
@@ -124,18 +130,56 @@
 	    
 	</target>
 	
-	<target name="reveng.pojos" description="Produces Java classes from XML mappings">
+	<!-- This target was from the book originaly but doesn't work with an error -->
+	<target name="reveng.pojos_example" description="Produces Java classes from XML mappings">
 	    
 	    <hibernatetool destdir="${basedir}/src">
 	        
-	        <configuration>
+	        <configuration 
+	            configurationfile="${basedir}/src/hibernate.cfg.xml">
 	            <fileset dir="${basedir}/src">
-	                <include name="**/*.hbm.xml" />
+	                <include name="**/*.hbm.xml"/>
 	            </fileset>
 	            
 	        </configuration>
 	        
 	        <hbm2java/><!-- Generate entity class source -->
+	        
+	    </hibernatetool>
+	</target>
+	
+	<!-- This target is working which is modified from the target : reveng.pojos_example -->
+	<target name="reveng.pojos_worksforme" description="Produces Java classes from XML mappings">
+	    
+	    <hibernatetool destdir="${basedir}/src">
+	        
+			<jdbcconfiguration 
+	            propertyfile="${basedir}/helloworld.db.properties" 
+	            revengfile="${basedir}/helloworld.reveng.xml"/>
+	        
+	        <!-- <configuration>
+	            <fileset dir="${basedir}/src">
+	                <include name="**/*.hbm.xml" />
+	            </fileset>
+	            
+	        </configuration> -->
+	        
+	        <hbm2java/><!-- Generate entity class source -->
+	        
+	    </hibernatetool>
+	</target>
+	
+	<target name="reveng.entities" 
+	    description="Produce Java entity classes in src directory">
+	    
+	    <hibernatetool destdir="${basedir}/src">
+	        
+	        <jdbcconfiguration 
+	            propertyfile="${basedir}/helloworld.db.properties" 
+	            revengfile="${basedir}/helloworld.reveng.xml"/>
+	            
+	        <hbm2java ejb3="true"/>
+	        <hbm2cfgxml ejb3="true"/>
 	        
 	    </hibernatetool>
 	</target>
