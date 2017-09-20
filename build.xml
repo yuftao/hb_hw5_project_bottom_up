@@ -169,6 +169,8 @@
 	    </hibernatetool>
 	</target>
 	
+	<!-- This target generates entity class source code with mapping annotations and a
+		 hibernate.cfg.xml file that lists these mapped classes -->
 	<target name="reveng.entities" 
 	    description="Produce Java entity classes in src directory">
 	    
